@@ -1,3 +1,5 @@
+from kubeflow.fairing.constants import constants
+
 import argparse
 import cloudpickle
 import sys
@@ -7,6 +9,8 @@ import logging
 
 logging.basicConfig(format='%(message)s')
 logging.getLogger().setLevel(logging.INFO)
+
+logging.getLogger().setLevel(constants.FAIRING_LOG_LEVEL)
 
 class ObjectType(Enum):
     FUNCTION = 1
@@ -21,6 +25,7 @@ def get_execution_obj_type(obj):
 
     """
     # Check if a function is provided
+    print(constants.FAIRING_LOG_LEVEL)
     if (isinstance(obj, types.FunctionType) or  #pylint:disable=consider-merging-isinstance
             isinstance(obj, types.BuiltinFunctionType) or
             isinstance(obj, types.BuiltinMethodType)):
